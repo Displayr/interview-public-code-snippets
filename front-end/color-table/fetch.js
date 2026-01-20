@@ -58,28 +58,7 @@ class DataDump {
           rgba: [0, 255, 0, 1],
           hex: "#00FF00"
         },
-        composedColors: [
-          {
-            color: "blue",
-            category: "hue",
-            type: "primary",
-            code: {
-              rgba: [0, 0, 255, 1],
-              hex: "#0000FF"
-            },
-            composedColors: []
-          },
-          {
-            color: "yellow",
-            category: "hue",
-            type: "primary",
-            code: {
-              rgba: [255, 255, 0, 1],
-              hex: "#FFFF00"
-            },
-            composedColors: []
-          }
-        ]
+        composedColors: ["blue", "yellow"]
       },
       {
         color: "purple",
@@ -89,28 +68,7 @@ class DataDump {
           rgba: [128, 0, 128, 1],
           hex: "#800080"
         },
-        composedColors: [
-          {
-            color: "blue",
-            category: "hue",
-            type: "primary",
-            code: {
-              rgba: [0, 0, 255, 1],
-              hex: "#0000FF"
-            },
-            composedColors: []
-          },
-          {
-            color: "red",
-            category: "hue",
-            type: "primary",
-            code: {
-              rgba: [255, 0, 0, 1],
-              hex: "#FF0000"
-            },
-            composedColors: []
-          }
-        ]
+        composedColors: ["blue", "red"]
       },
       {
         color: "orange",
@@ -120,28 +78,7 @@ class DataDump {
           rgba: [255, 165, 0, 1],
           hex: "#FFA500"
         },
-        composedColors: [
-          {
-            color: "red",
-            category: "hue",
-            type: "primary",
-            code: {
-              rgba: [255, 0, 0, 1],
-              hex: "#FF0000"
-            },
-            composedColors: []
-          },
-          {
-            color: "yellow",
-            category: "hue",
-            type: "primary",
-            code: {
-              rgba: [255, 255, 0, 1],
-              hex: "#FFFF00"
-            },
-            composedColors: []
-          }
-        ]
+        composedColors: ["red", "yellow"]
       },
       {
         color: "pink",
@@ -151,28 +88,7 @@ class DataDump {
           rgba: [255, 192, 203, 1],
           hex: "#FFC0CB"
         },
-        composedColors: [
-          {
-            color: "red",
-            category: "hue",
-            type: "primary",
-            code: {
-              rgba: [255, 0, 0, 1],
-              hex: "#FF0000"
-            },
-            composedColors: []
-          },
-          {
-            color: "white",
-            category: "value",
-            type: "neutral",
-            code: {
-              rgba: [0, 0, 0, 1],
-              hex: "#FFFFFF"
-            },
-            composedColors: []
-          }
-        ]
+        composedColors: ["red", "white"]
       },
       {
         color: "brown",
@@ -182,49 +98,7 @@ class DataDump {
           rgba: [165, 42, 42, 1],
           hex: "#A52A2A"
         },
-        composedColors: [
-          {
-            color: "red",
-            category: "hue",
-            type: "primary",
-            code: {
-              rgba: [255, 0, 0, 1],
-              hex: "#FF0000"
-            },
-            composedColors: []
-          },
-          {
-            color: "green",
-            category: "hue",
-            type: "secondary",
-            code: {
-              rgba: [0, 255, 0, 1],
-              hex: "#00FF00"
-            },
-            composedColors: [
-              {
-                color: "blue",
-                category: "hue",
-                type: "primary",
-                code: {
-                  rgba: [0, 0, 255, 1],
-                  hex: "#0000FF"
-                },
-                composedColors: []
-              },
-              {
-                color: "yellow",
-                category: "hue",
-                type: "primary",
-                code: {
-                  rgba: [255, 255, 0, 1],
-                  hex: "#FFFF00"
-                },
-                composedColors: []
-              }
-            ]
-          }
-        ]
+        composedColors: ['red', 'green']
       }
     ];
   
@@ -259,7 +133,8 @@ class DataDump {
           reject("No color found");
           return;
         }
-        resolve(color);
+        const { composedColors, ...colorData } = color;
+        resolve(colorData);
       }, randomTimeInterval(1500));
     });
   }
@@ -278,7 +153,8 @@ class DataDump {
           reject("No color found");
           return;
         }
-        resolve(color);
+        const { composedColors, ...colorData } = color;
+        resolve(colorData);
       }, randomTimeInterval(1500));
     });
   }

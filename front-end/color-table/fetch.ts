@@ -6,11 +6,12 @@ export type Color = {
       rgba: [number, number, number, number];
       hex: string;
     };
-    composedColors?: Color[];
   };
-  
+
   class DataDump {
-    private _colors: Color[] = [
+    private _colors: (Color & {
+      composedColors: string[];
+    })[] = [
       {
         color: "black",
         category: "hue",
@@ -69,28 +70,7 @@ export type Color = {
           rgba: [0, 255, 0, 1],
           hex: "#00FF00"
         },
-        composedColors: [
-          {
-            color: "blue",
-            category: "hue",
-            type: "primary",
-            code: {
-              rgba: [0, 0, 255, 1],
-              hex: "#0000FF"
-            },
-            composedColors: []
-          },
-          {
-            color: "yellow",
-            category: "hue",
-            type: "primary",
-            code: {
-              rgba: [255, 255, 0, 1],
-              hex: "#FFFF00"
-            },
-            composedColors: []
-          }
-        ]
+        composedColors: ["blue", "yellow"]
       },
       {
         color: "purple",
@@ -100,28 +80,7 @@ export type Color = {
           rgba: [128, 0, 128, 1],
           hex: "#800080"
         },
-        composedColors: [
-          {
-            color: "blue",
-            category: "hue",
-            type: "primary",
-            code: {
-              rgba: [0, 0, 255, 1],
-              hex: "#0000FF"
-            },
-            composedColors: []
-          },
-          {
-            color: "red",
-            category: "hue",
-            type: "primary",
-            code: {
-              rgba: [255, 0, 0, 1],
-              hex: "#FF0000"
-            },
-            composedColors: []
-          }
-        ]
+        composedColors: ["blue", "red"]
       },
       {
         color: "orange",
@@ -131,28 +90,7 @@ export type Color = {
           rgba: [255, 165, 0, 1],
           hex: "#FFA500"
         },
-        composedColors: [
-          {
-            color: "red",
-            category: "hue",
-            type: "primary",
-            code: {
-              rgba: [255, 0, 0, 1],
-              hex: "#FF0000"
-            },
-            composedColors: []
-          },
-          {
-            color: "yellow",
-            category: "hue",
-            type: "primary",
-            code: {
-              rgba: [255, 255, 0, 1],
-              hex: "#FFFF00"
-            },
-            composedColors: []
-          }
-        ]
+        composedColors: ["red", "yellow"]
       },
       {
         color: "pink",
@@ -162,28 +100,7 @@ export type Color = {
           rgba: [255, 192, 203, 1],
           hex: "#FFC0CB"
         },
-        composedColors: [
-          {
-            color: "red",
-            category: "hue",
-            type: "primary",
-            code: {
-              rgba: [255, 0, 0, 1],
-              hex: "#FF0000"
-            },
-            composedColors: []
-          },
-          {
-            color: "white",
-            category: "value",
-            type: "neutral",
-            code: {
-              rgba: [0, 0, 0, 1],
-              hex: "#FFFFFF"
-            },
-            composedColors: []
-          }
-        ]
+        composedColors: ["red", "white"]
       },
       {
         color: "brown",
@@ -193,49 +110,7 @@ export type Color = {
           rgba: [165, 42, 42, 1],
           hex: "#A52A2A"
         },
-        composedColors: [
-          {
-            color: "red",
-            category: "hue",
-            type: "primary",
-            code: {
-              rgba: [255, 0, 0, 1],
-              hex: "#FF0000"
-            },
-            composedColors: []
-          },
-          {
-            color: "green",
-            category: "hue",
-            type: "secondary",
-            code: {
-              rgba: [0, 255, 0, 1],
-              hex: "#00FF00"
-            },
-            composedColors: [
-              {
-                color: "blue",
-                category: "hue",
-                type: "primary",
-                code: {
-                  rgba: [0, 0, 255, 1],
-                  hex: "#0000FF"
-                },
-                composedColors: []
-              },
-              {
-                color: "yellow",
-                category: "hue",
-                type: "primary",
-                code: {
-                  rgba: [255, 255, 0, 1],
-                  hex: "#FFFF00"
-                },
-                composedColors: []
-              }
-            ]
-          }
-        ]
+        composedColors: ['red', 'green']
       }
     ];
   
@@ -270,7 +145,8 @@ export type Color = {
           reject("No color found");
           return;
         }
-        resolve(color);
+        const { composedColors, ...colorData } = color;
+        resolve(colorData);
       }, randomTimeInterval(1500));
     });
   }
@@ -289,7 +165,8 @@ export type Color = {
           reject("No color found");
           return;
         }
-        resolve(color);
+        const { composedColors, ...colorData } = color;
+        resolve(colorData);
       }, randomTimeInterval(1500));
     });
   }
@@ -300,7 +177,7 @@ export type Color = {
    * @returns A promise that resolves to an array of composed colors.
    * @throws An error if no composed colors are found.
    */
-  export function fetchComposedColors(colorName: string): Promise<Color[]> {
+  export function fetchComposedColors(colorName: string): Promise<string[]> {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
         const composedColors = dataDump.getComposedColors(colorName);
